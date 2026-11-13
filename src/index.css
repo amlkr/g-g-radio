@@ -1,0 +1,95 @@
+@import 'tailwindcss';
+@import '@fontsource/silkscreen/400.css';
+@import '@fontsource/silkscreen/700.css';
+@import '@fontsource/press-start-2p/400.css';
+@import '@fontsource/space-mono/400.css';
+@import '@fontsource/space-mono/700.css';
+
+@theme {
+  --color-void: #000000;
+  --color-disc: #0a0a0a;
+  --color-disc-hi: #1c1b19;
+  --color-bone: #f5f3ee;
+  --color-ash: #8a8781;
+  --color-vermilion: #ed5b1e;
+  --font-pixel: 'Silkscreen', ui-monospace, monospace;
+  --font-arcade: 'Press Start 2P', ui-monospace, monospace;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+}
+
+html,
+body {
+  background: var(--color-void);
+  color: var(--color-bone);
+}
+
+/* halftone dither: the house texture, cheap and deterministic */
+.halftone {
+  background-image: radial-gradient(color-mix(in srgb, var(--color-bone) 5%, transparent) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+.halftone-strong {
+  background-image: radial-gradient(color-mix(in srgb, var(--color-bone) 14%, transparent) 1px, transparent 1.4px);
+  background-size: 4px 4px;
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ticker-track {
+  animation: ticker 32s linear infinite;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes blink {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0.15;
+  }
+}
+.blink {
+  animation: blink 1.4s steps(1) infinite;
+}
+
+/* ── G_G: the two Gs spin like dual turntables ── */
+@keyframes g-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes g-spin-rev {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+.g-spin-cw {
+  animation: g-spin 36s linear infinite;
+}
+.g-spin-ccw {
+  animation: g-spin-rev 42s linear infinite;
+}
+.g-fast-cw {
+  animation-duration: 4s;
+}
+.g-fast-ccw {
+  animation-duration: 5s;
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track,
+  .blink,
+  .g-spin-cw,
+  .g-spin-ccw {
+    animation: none;
+  }
+}
